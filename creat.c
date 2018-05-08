@@ -10,6 +10,7 @@ int main(void)
 {
     int fd,pos;
     char temp[100];
+    char temp1[100];
     char rbuf[100];
     int wcount;
     int rcount;
@@ -32,9 +33,6 @@ int main(void)
     wcount= write(fd,temp,strlen(temp)); 
 //파일에 쓴 문자열 갯수 출력
     printf("wcount =%d \n",wcount);
-
-//    lseek(fd,17,SEEK_SET);
-    write(fd,"eggs ",strlen("eggs "));
    // close(fd);
    // fd=open("./test.txt",O_RDONLY);
 //파일내 커서 위치를 시작점 기준으로 offset 0번지로 이동
@@ -45,6 +43,19 @@ int main(void)
     printf("pos=%d\n",pos);    
 //파일읽기 -> rbuf에 채움
     rcount= read(fd,rbuf,BUFSIZE);
+    strncpy(temp1,rbuf,17);
+    printf("%s\n",temp1);
+    strcat(temp1,"eggs ");
+    printf("%s\n",temp1);
+    lseek(fd,17,SEEK_SET);
+    read(fd,rbuf,BUFSIZE);
+    printf("%s\n",rbuf);
+    strcat(temp1,rbuf);
+    printf("%s\n",temp1);
+    lseek(fd,0,SEEK_SET);
+    write(fd,temp1,strlen(temp1));
+
+
 //읽은 문자열 갯수확인
     printf("rcount=%d\n",rcount);
 //읽은 버퍼의 내용 확인
